@@ -122,6 +122,16 @@
   .facts th { width: 40%; color: var(--muted); font-weight: 600; }
   .facts tr:last-child th, .facts tr:last-child td { border-bottom: 0; }
 
+  .ca { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .ca-text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; word-break: break-all; text-decoration: none; }
+  .ca-text:hover { text-decoration: underline; }
+  .copy {
+    font: inherit; font-size: 14px; font-weight: 700;
+    padding: 6px 14px; border-radius: 8px; cursor: pointer;
+    background: transparent; color: var(--ink); border: 1px solid var(--line);
+  }
+  .copy:hover { border-color: var(--muted); }
+
   footer { border-top: 1px solid var(--line); padding: 36px 0 56px; color: var(--muted); font-size: 14px; }
   footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
   footer p { margin: 0; max-width: 46em; }
@@ -244,7 +254,15 @@
         <tr><th scope="row">Project</th><td>AstraFi</td></tr>
         <tr><th scope="row">Ticker</th><td>$ASTRA</td></tr>
         <tr><th scope="row">Network</th><td>Robinhood Chain</td></tr>
-        <tr><th scope="row">Contract address</th><td>Coming soon</td></tr>
+        <tr>
+          <th scope="row">Contract address</th>
+          <td>
+            <div class="ca">
+              <a class="ca-text" id="ca" href="https://robin.etherscan.io/token/0x01733ae9b0672f3af38191a47d024cb349416366" target="_blank" rel="noopener noreferrer">0x01733ae9b0672f3af38191a47d024cb349416366</a>
+              <button class="copy" id="copy" type="button">Copy</button>
+            </div>
+          </td>
+        </tr>
         <tr><th scope="row">Official X account</th><td><a href="https://x.com/UseAstraFi_" target="_blank" rel="noopener noreferrer">@UseAstraFi_</a></td></tr>
       </table>
     </div>
@@ -273,6 +291,29 @@
     <a href="https://x.com/UseAstraFi_" target="_blank" rel="noopener noreferrer">@UseAstraFi_ on X</a>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById('copy');
+    var text = document.getElementById('ca').textContent.trim();
+    btn.addEventListener('click', function () {
+      function done() {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1800);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () {});
+      } else {
+        var t = document.createElement('textarea');
+        t.value = text;
+        document.body.appendChild(t);
+        t.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(t);
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
