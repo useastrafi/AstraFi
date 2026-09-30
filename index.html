@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstraFi | DeFi on Robinhood Chain</title>
+<meta name="description" content="AstraFi is a clean, guided DeFi project built on Robinhood Chain.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f7fb;
+    --surface: #ffffff;
+    --ink: #14122b;
+    --muted: #5c5a75;
+    --line: #e2e1ee;
+    --accent: #4b3fd8;
+    --accent-ink: #ffffff;
+    --accent-soft: #eceaff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f0e1c;
+      --surface: #161528;
+      --ink: #eeedf9;
+      --muted: #a4a2c2;
+      --line: #2a2946;
+      --accent: #7a6cff;
+      --accent-ink: #0f0e1c;
+      --accent-soft: #221f45;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header { border-bottom: 1px solid var(--line); background: var(--bg); }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { font-weight: 800; font-size: 20px; letter-spacing: -0.01em; text-decoration: none; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a.link { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 15px; }
+  nav a.link:hover { color: var(--ink); }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 20px; border-radius: 8px;
+    font: inherit; font-weight: 700; font-size: 15px;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover { border-color: var(--muted); }
+  .btn svg { width: 16px; height: 16px; fill: currentColor; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  /* Hero */
+  .hero { padding: 96px 0 88px; }
+  h1 {
+    margin: 0 0 20px;
+    font-size: clamp(38px, 6.2vw, 64px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    max-width: 14em;
+  }
+  .lead { margin: 0 0 32px; font-size: 20px; color: var(--muted); max-width: 34em; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  /* Sections */
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+  h2 { margin: 0 0 12px; font-size: clamp(26px, 3.6vw, 34px); letter-spacing: -0.02em; line-height: 1.2; }
+  .intro { margin: 0 0 40px; color: var(--muted); max-width: 36em; }
+  .cols { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; }
+  .cols > .side p { margin: 0; color: var(--muted); }
+
+  /* Principles list */
+  .list { margin: 0; padding: 0; list-style: none; }
+  .list li { padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .list li:first-child { padding-top: 0; }
+  .list li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .list h3 { margin: 0 0 6px; font-size: 19px; }
+  .list p { margin: 0; color: var(--muted); }
+
+  /* Roadmap */
+  .steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 16px; }
+  .step {
+    display: grid; grid-template-columns: 120px 1fr; gap: 24px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; padding: 24px;
+  }
+  .step .phase { font-weight: 700; color: var(--accent); }
+  .step h3 { margin: 0 0 6px; font-size: 19px; }
+  .step p { margin: 0; color: var(--muted); }
+
+  /* Connect */
+  .connect {
+    background: var(--accent-soft);
+    border-radius: 16px; padding: 48px;
+  }
+  .connect h2 { margin-bottom: 10px; }
+  .connect p { margin: 0 0 28px; color: var(--muted); max-width: 32em; }
+  .handle { font-weight: 700; color: var(--ink); }
+
+  /* Info table */
+  .facts { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  .facts th, .facts td { text-align: left; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+  .facts th { width: 40%; color: var(--muted); font-weight: 600; }
+  .facts tr:last-child th, .facts tr:last-child td { border-bottom: 0; }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0 56px; color: var(--muted); font-size: 14px; }
+  footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+  footer p { margin: 0; max-width: 46em; }
+  footer a { text-decoration: none; font-weight: 600; color: var(--ink); }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 720px) {
+    body { font-size: 16px; }
+    .hero { padding: 64px 0 56px; }
+    .lead { font-size: 18px; }
+    section { padding: 56px 0; }
+    .cols { grid-template-columns: 1fr; gap: 24px; }
+    .step { grid-template-columns: 1fr; gap: 6px; }
+    .connect { padding: 32px 24px; }
+    nav a.link { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top">AstraFi</a>
+    <nav>
+      <a class="link" href="#about">About</a>
+      <a class="link" href="#roadmap">Roadmap</a>
+      <a class="link" href="#community">Community</a>
+      <a class="btn btn-primary" href="https://x.com/UseAstraFi_" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Follow on X
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <h1>DeFi on Robinhood Chain, made clear.</h1>
+    <p class="lead">AstraFi is building a simple, guided way to earn, hold, and follow your onchain activity. Less noise, more direction.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://x.com/UseAstraFi_" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Follow @UseAstraFi_
+      </a>
+      <a class="btn btn-ghost" href="#roadmap">View roadmap</a>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap cols">
+      <div class="side">
+        <h2>About</h2>
+        <p>What AstraFi stands for and how it will be built.</p>
+      </div>
+      <ul class="list">
+        <li>
+          <h3>Simple by default</h3>
+          <p>DeFi tools are often crowded and hard to read. AstraFi keeps every screen focused on one job, so you always know what you are doing and why.</p>
+        </li>
+        <li>
+          <h3>Built for Robinhood Chain</h3>
+          <p>The chain is new and its users are used to familiar, accessible products. AstraFi is designed for that audience from the first day.</p>
+        </li>
+        <li>
+          <h3>Transparent progress</h3>
+          <p>Updates are shared openly on X as each phase gets closer. What is planned is labeled as planned, and what is live is labeled as live.</p>
+        </li>
+        <li>
+          <h3>Community first</h3>
+          <p>Early supporters help shape the direction. Feedback is read, discussed, and used to decide what gets built next.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <div class="wrap">
+      <h2>Roadmap</h2>
+      <p class="intro">Four planned phases. Each one builds on the last, and details are shared on X as they are finalized.</p>
+      <ol class="steps">
+        <li class="step">
+          <div class="phase">Phase 1</div>
+          <div>
+            <h3>Ignite</h3>
+            <p>Launch the project, publish the brand, and bring the first community together.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="phase">Phase 2</div>
+          <div>
+            <h3>Orbit</h3>
+            <p>Introduce staking and rewards mechanics for early supporters.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="phase">Phase 3</div>
+          <div>
+            <h3>Chart</h3>
+            <p>Release a clean dashboard for following onchain activity, plus tools that make DeFi easier to understand.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="phase">Phase 4</div>
+          <div>
+            <h3>Expand</h3>
+            <p>Form partnerships and integrations with other projects across the Robinhood Chain ecosystem.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="token">
+    <div class="wrap cols">
+      <div class="side">
+        <h2>Project info</h2>
+        <p>Key details in one place. Fields marked as coming soon will be filled in at launch.</p>
+      </div>
+      <table class="facts">
+        <tr><th scope="row">Project</th><td>AstraFi</td></tr>
+        <tr><th scope="row">Ticker</th><td>$ASTRA</td></tr>
+        <tr><th scope="row">Network</th><td>Robinhood Chain</td></tr>
+        <tr><th scope="row">Contract address</th><td>Coming soon</td></tr>
+        <tr><th scope="row">Official X account</th><td><a href="https://x.com/UseAstraFi_" target="_blank" rel="noopener noreferrer">@UseAstraFi_</a></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="community">
+    <div class="wrap">
+      <div class="connect">
+        <h2>Follow the build</h2>
+        <p>All announcements, launch details, and updates are posted on X first. Follow <span class="handle">@UseAstraFi_</span> and turn on notifications so you do not miss them.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://x.com/UseAstraFi_" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Follow on X
+          </a>
+          <a class="btn btn-ghost" href="https://x.com/intent/tweet?text=Following%20%40UseAstraFi_%20on%20Robinhood%20Chain." target="_blank" rel="noopener noreferrer">Share on X</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap row">
+    <p>This website is for information only and is not financial advice. Digital assets carry risk, including the loss of all funds. Do your own research before participating.</p>
+    <a href="https://x.com/UseAstraFi_" target="_blank" rel="noopener noreferrer">@UseAstraFi_ on X</a>
+  </div>
+</footer>
+
+</body>
+</html>
